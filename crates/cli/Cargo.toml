@@ -1,13 +1,11 @@
 [package]
-name = "cli"
+name = "prj-runner"
 version = { workspace = true }
 edition = { workspace = true }
 
 [dependencies]
-anyhow = { workspace = true }
 clap = { version = "4.0.19", features = ["derive"] }
-# serde = { workspace = true }
-# serde_json = { workspace = true }
+prj-base-directory = { path = "../prj-base-directory" }
 tokio = { workspace = true, features = ["full"] }
 thiserror = { workspace = true }
 tracing = { workspace = true }

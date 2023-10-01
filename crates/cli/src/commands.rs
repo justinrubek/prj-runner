@@ -7,20 +7,32 @@ pub(crate) struct Args {
 
 #[derive(clap::Subcommand, Debug)]
 pub(crate) enum Commands {
-    Hello(Hello),
+    Project(Project),
 }
 
 #[derive(clap::Args, Debug)]
-pub(crate) struct Hello {
+pub(crate) struct Project {
     #[clap(subcommand)]
-    pub command: HelloCommands,
+    pub command: ProjectCommands,
 }
 
 #[derive(clap::Subcommand, Debug)]
-pub(crate) enum HelloCommands {
-    World,
-    Name {
-        #[arg()]
-        name: String,
-    },
+pub(crate) enum ProjectCommands {
+    /// Run a command in the project's root directory
+    Exec(Exec),
+    /// Display the project structure information
+    Info,
 }
+
+#[derive(clap::Args, Debug)]
+pub(crate) struct Exec {
+    /// The command to run
+    #[arg()]
+    pub command: String,
+    /// The arguments to pass to the command
+    #[arg()]
+    pub args: Vec<String>,
+}
+
+#[derive(clap::Args, Debug)]
+pub(crate) struct Info {}
