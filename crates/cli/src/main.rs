@@ -1,5 +1,7 @@
 use crate::commands::Commands;
 use clap::Parser;
+use commands::DisplayType;
+use prj_base_directory::Project;
 use std::error::Error;
 use tracing::{debug, info};
 
@@ -12,15 +14,15 @@ async fn main() -> std::result::Result<(), Box<dyn Error>> {
 
     let args = commands::Args::parse();
     match args.command {
-        Commands::Project(project) => {
-            let project_root = prj_base_directory::get_project_root().await?;
+        Commands::Project(project_cmd) => {
+            let project = Project::discover().await?;
 
-            match project.command {
+            match project_cmd.command {
                 commands::ProjectCommands::Exec(exec) => {
-                    debug!(?project_root, ?exec, "Running command in project root");
+                    debug!(?project, ?exec, "Running command in project");
 
                     let mut process = tokio::process::Command::new(exec.command)
-                        .current_dir(project_root.unwrap())
+                        .current_dir(&project.project_root.unwrap())
                         .args(exec.args)
                         .spawn()?;
 
@@ -30,9 +32,19 @@ async fn main() -> std::result::Result<(), Box<dyn Error>> {
                         return Err(error::Error::ExecError(code).into());
                     }
                 }
-                commands::ProjectCommands::Info => {
-                    info!(?project_root);
-                }
+                commands::ProjectCommands::Info(info) => match info.format {
+                    DisplayType::Print => {
+                        info!(?project);
+                    }
+                    DisplayType::Json => {
+                        let value = serde_json::json!(project);
+                        println!("{}", serde_json::to_string_pretty(&value)?);
+                    }
+                    DisplayType::Ron => {
+                        let value = ron::ser::to_string_pretty(&project, Default::default())?;
+                        println!("{}", value);
+                    }
+                },
             }
         }
     }

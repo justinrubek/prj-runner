@@ -1,15 +1,34 @@
-use std::path::PathBuf;
-
 use crate::error::Result;
+use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 use tokio::io::AsyncReadExt;
 use tracing::debug;
 
 pub mod error;
 
-/// The PRJ_ROOT MUST be an absolute path that points to the project root.
-/// If the environment variable $PRJ_ROOT is set, use it as the project root.
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Project {
+    pub project_root: Option<PathBuf>,
+    pub project_id: Option<String>,
+}
+
+impl Project {
+    /// Retrieve the project information detected from current directory.
+    pub async fn discover() -> Result<Self> {
+        let project_root = get_project_root().await?;
+        let project_id = get_project_id().await;
+
+        Ok(Self {
+            project_root,
+            project_id,
+        })
+    }
+}
+
+/// An absolute path that points to the project root directory.
+/// If the environment variable $PRJ_ROOT is set its value will be used.
 /// Otherwise, a best effort is made to find the project root using the following technies:
-/// - An attempt will be made to find a git repository root.
+/// - Searching upwards for a git repository
 #[tracing::instrument]
 pub async fn get_project_root() -> Result<Option<PathBuf>> {
     let project_root = std::env::var("PRJ_ROOT").ok();

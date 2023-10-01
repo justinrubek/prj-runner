@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 #[derive(clap::Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 pub(crate) struct Args {
@@ -21,7 +23,7 @@ pub(crate) enum ProjectCommands {
     /// Run a command in the project's root directory
     Exec(Exec),
     /// Display the project structure information
-    Info,
+    Info(Info),
 }
 
 #[derive(clap::Args, Debug)]
@@ -35,4 +37,15 @@ pub(crate) struct Exec {
 }
 
 #[derive(clap::Args, Debug)]
-pub(crate) struct Info {}
+pub(crate) struct Info {
+    /// The type of output to return
+    #[clap(long, short, default_value = "print")]
+    pub format: DisplayType,
+}
+
+#[derive(clap::ValueEnum, Clone, Debug, Deserialize, Serialize)]
+pub(crate) enum DisplayType {
+    Print,
+    Json,
+    Ron,
+}
