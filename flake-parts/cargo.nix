@@ -25,7 +25,7 @@
         ];
       };
 
-      pname = "prj-runner";
+      pname = "project-runner";
 
       nativeBuildInputs = withExtraPackages [];
       LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath nativeBuildInputs;
@@ -34,12 +34,12 @@
     deps-only = craneLib.buildDepsOnly ({} // common-build-args);
 
     packages = {
-      default = packages.prj-runner;
-      prj-runner = craneLib.buildPackage ({
-          pname = "prj-runner";
+      default = packages.project-runner;
+      project-runner = craneLib.buildPackage ({
+          pname = "project-runner";
           cargoArtifacts = deps-only;
-          cargoExtraArgs = "--bin prj-runner";
-          meta.mainProgram = "prj-runner";
+          cargoExtraArgs = "--bin project-runner";
+          meta.mainProgram = "project-runner";
         }
         // common-build-args);
 
@@ -72,11 +72,11 @@
     inherit packages checks;
 
     apps = {
-      prj-runner = {
+      project-runner = {
         type = "app";
-        program = pkgs.lib.getBin self'.packages.prj-runner;
+        program = pkgs.lib.getBin self'.packages.project-runner;
       };
-      default = apps.prj-runner;
+      default = apps.project-runner;
     };
 
     legacyPackages = {

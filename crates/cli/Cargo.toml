@@ -1,5 +1,5 @@
 [package]
-name = "prj-runner"
+name = "project-runner"
 version = { workspace = true }
 edition = { workspace = true }
 
