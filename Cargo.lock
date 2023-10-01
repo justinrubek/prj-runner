@@ -1451,22 +1451,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8afb450f006bf6385ca15ef45d71d2288452bc3683ce2e2cacc0d18e4be60b58"
 
 [[package]]
-name = "prj-base-directory"
-version = "0.1.0"
-dependencies = [
- "gix",
- "serde",
- "thiserror",
- "tokio",
- "tracing",
-]
-
-[[package]]
 name = "prj-runner"
 version = "0.1.0"
 dependencies = [
  "clap",
- "prj-base-directory",
+ "project-base-directory",
  "ron",
  "serde",
  "serde_json",
@@ -1493,6 +1482,17 @@ checksum = "794b5bf8e2d19b53dcdcec3e4bba628e20f5b6062503ba89281fa7037dd7bbcf"
 dependencies = [
  "bytesize",
  "human_format",
+]
+
+[[package]]
+name = "project-base-directory"
+version = "0.1.0"
+dependencies = [
+ "gix",
+ "serde",
+ "thiserror",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]

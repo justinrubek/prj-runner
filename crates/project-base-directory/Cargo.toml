@@ -1,5 +1,5 @@
 [package]
-name = "prj-base-directory"
+name = "project-base-directory"
 version = { workspace = true }
 edition = { workspace = true }
 

@@ -1,7 +1,7 @@
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error(transparent)]
-    PrjBaseDirectory(#[from] prj_base_directory::error::Error),
+    ProjectBaseDirectory(#[from] project_base_directory::error::Error),
     #[error("command execution failed")]
     ExecError(i32),
 }

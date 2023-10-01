@@ -1,7 +1,7 @@
 use crate::commands::Commands;
 use clap::Parser;
 use commands::DisplayType;
-use prj_base_directory::Project;
+use project_base_directory::Project;
 use std::error::Error;
 use tracing::{debug, info};
 
