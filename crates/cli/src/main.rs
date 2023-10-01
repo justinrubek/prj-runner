@@ -15,14 +15,14 @@ async fn main() -> std::result::Result<(), Box<dyn Error>> {
     let args = commands::Args::parse();
     match args.command {
         Commands::Project(project_cmd) => {
-            let project = Project::discover().await?;
+            let project = Project::discover_and_assume().await?;
 
             match project_cmd.command {
                 commands::ProjectCommands::Exec(exec) => {
                     debug!(?project, ?exec, "Running command in project");
 
                     let mut process = tokio::process::Command::new(exec.command)
-                        .current_dir(&project.project_root.unwrap())
+                        .current_dir(&project.root_directory.unwrap())
                         .args(exec.args)
                         .spawn()?;
 
