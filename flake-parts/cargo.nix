@@ -34,12 +34,12 @@
     deps-only = craneLib.buildDepsOnly ({} // common-build-args);
 
     packages = {
-      default = packages.cli;
-      cli = craneLib.buildPackage ({
-          pname = "cli";
+      default = packages.prj-runner;
+      prj-runner = craneLib.buildPackage ({
+          pname = "prj-runner";
           cargoArtifacts = deps-only;
-          cargoExtraArgs = "--bin cli";
-          meta.mainProgram = "cli";
+          cargoExtraArgs = "--bin prj-runner";
+          meta.mainProgram = "prj-runner";
         }
         // common-build-args);
 
@@ -72,11 +72,11 @@
     inherit packages checks;
 
     apps = {
-      cli = {
+      prj-runner = {
         type = "app";
-        program = pkgs.lib.getBin self'.packages.cli;
+        program = pkgs.lib.getBin self'.packages.prj-runner;
       };
-      default = apps.cli;
+      default = apps.prj-runner;
     };
 
     legacyPackages = {
