@@ -100,6 +100,43 @@ impl Project {
 
         Ok(value)
     }
+
+    /// Retrieve the project information as a HashMap composed of the environment variables as keys
+    /// and their values as values.
+    pub fn project_hashmap(&self) -> std::collections::HashMap<String, Option<String>> {
+        let mut hashmap = std::collections::HashMap::new();
+
+        hashmap.insert(
+            constants::PROJECT_ROOT.to_string(),
+            self.root_directory
+                .as_ref()
+                .map(|p| p.to_str().unwrap().to_string()),
+        );
+        hashmap.insert(
+            constants::PROJECT_DATA_HOME.to_string(),
+            self.data_home
+                .as_ref()
+                .map(|p| p.to_str().unwrap().to_string()),
+        );
+        hashmap.insert(
+            constants::PROJECT_CONFIG_HOME.to_string(),
+            self.config_home
+                .as_ref()
+                .map(|p| p.to_str().unwrap().to_string()),
+        );
+        hashmap.insert(
+            constants::PROJECT_CACHE.to_string(),
+            self.cache_home
+                .as_ref()
+                .map(|p| p.to_str().unwrap().to_string()),
+        );
+        hashmap.insert(
+            constants::PROJECT_ID.to_string(),
+            self.project_id.as_ref().map(|p| p.to_string()),
+        );
+
+        hashmap
+    }
 }
 
 /// An absolute path that points to the project root directory.

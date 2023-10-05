@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 
 #[derive(clap::Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -24,6 +25,8 @@ pub(crate) enum ProjectCommands {
     Exec(Exec),
     /// Display the project structure information
     Info(Info),
+    /// Generate environment variables with the project's structure
+    GenerateEnv(Env),
 }
 
 #[derive(clap::Args, Debug)]
@@ -48,4 +51,32 @@ pub(crate) enum DisplayType {
     Print,
     Json,
     Ron,
+}
+
+#[derive(clap::Args, Debug)]
+pub(crate) struct Env {
+    #[clap(subcommand)]
+    pub env_type: EnvType,
+}
+
+#[derive(clap::Args, Clone, Debug, Deserialize, Serialize)]
+pub(crate) struct DotEnv {
+    /// Whether or not to prepend `export` to each line
+    #[clap(long, short)]
+    pub export: bool,
+}
+
+#[derive(clap::Args, Clone, Debug, Deserialize, Serialize)]
+pub(crate) struct DotEnvDirectory {
+    /// The directory to write the environment variables to
+    #[clap(long, short, default_value = ".direnv/env")]
+    pub directory: PathBuf,
+}
+
+#[derive(clap::Subcommand, Clone, Debug, Deserialize, Serialize)]
+pub(crate) enum EnvType {
+    /// A .env file
+    DotEnv(DotEnv),
+    /// A directory with files for each environment variable
+    Directory(DotEnvDirectory),
 }
