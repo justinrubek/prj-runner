@@ -1,4 +1,4 @@
-use crate::commands::Commands;
+use crate::commands::{Commands, DotEnv, DotEnvDirectory, EnvType};
 use clap::Parser;
 use commands::DisplayType;
 use project_base_directory::Project;
@@ -37,14 +37,41 @@ async fn main() -> std::result::Result<(), Box<dyn Error>> {
                         info!(?project);
                     }
                     DisplayType::Json => {
-                        let value = serde_json::json!(project);
-                        println!("{}", serde_json::to_string_pretty(&value)?);
+                        println!("{}", serde_json::to_string_pretty(&project)?);
                     }
                     DisplayType::Ron => {
                         let value = ron::ser::to_string_pretty(&project, Default::default())?;
                         println!("{}", value);
                     }
                 },
+                commands::ProjectCommands::GenerateEnv(env) => {
+                    let env_vars = project.project_hashmap();
+
+                    match env.env_type {
+                        EnvType::DotEnv(DotEnv { export }) => {
+                            for (key, value) in env_vars {
+                                if let Some(value) = value {
+                                    if export {
+                                        println!("export {}={}", key, value);
+                                    } else {
+                                        println!("{}={}", key, value);
+                                    }
+                                }
+                            }
+                        }
+                        EnvType::Directory(DotEnvDirectory { directory }) => {
+                            // ensure the directory exists
+                            tokio::fs::create_dir_all(&directory).await?;
+
+                            for (key, value) in env_vars {
+                                if let Some(value) = value {
+                                    let file_path = directory.join(key);
+                                    tokio::fs::write(file_path, value).await?;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
