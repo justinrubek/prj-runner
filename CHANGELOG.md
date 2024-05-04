@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [0.3.0](https://github.com/justinrubek/project-runner/compare/d370bf8ed363d2999fcef9d18db81035ae90a5eb..0.3.0) - 2024-05-04
+#### Bug Fixes
+- **(cargo)** allow `clippy::result_large_err` - ([85ea300](https://github.com/justinrubek/project-runner/commit/85ea3005631662bea1768bcf071461b7942770c8)) - [@justinrubek](https://github.com/justinrubek)
+#### Build system
+- **(cargo)** cargo update - ([bae5af8](https://github.com/justinrubek/project-runner/commit/bae5af8b9b59e3fe0c9022b8b90b6512213ecf23)) - [@justinrubek](https://github.com/justinrubek)
+- **(cargo)** cargo update - ([d370bf8](https://github.com/justinrubek/project-runner/commit/d370bf8ed363d2999fcef9d18db81035ae90a5eb)) - [@justinrubek](https://github.com/justinrubek)
+- **(nix)** nix flake update - ([2ca0fe1](https://github.com/justinrubek/project-runner/commit/2ca0fe11b66c5c123606772d42b597809f6dea68)) - [@justinrubek](https://github.com/justinrubek)
+#### Documentation
+- fix typo in rust docstring - ([2818606](https://github.com/justinrubek/project-runner/commit/2818606d7a84c25c3e9a0c97c60d4726f25a4006)) - [@justinrubek](https://github.com/justinrubek)
+#### Refactoring
+- remove async from functions that do not use it - ([e8ca657](https://github.com/justinrubek/project-runner/commit/e8ca6574ad136996fbf076eb788696ab062cee98)) - [@justinrubek](https://github.com/justinrubek)
+
+- - -
+
 ## [0.2.0](https://github.com/justinrubek/project-runner/compare/0.1.0..0.2.0) - 2023-10-05
 #### Features
 - generate environment variables for projects - ([70a7253](https://github.com/justinrubek/project-runner/commit/70a7253cec2c14b5f227d58f1f7b59dc97a334e3)) - [@justinrubek](https://github.com/justinrubek)
