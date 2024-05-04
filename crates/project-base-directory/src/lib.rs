@@ -141,7 +141,7 @@ impl Project {
 
 /// An absolute path that points to the project root directory.
 /// If the environment variable $PRJ_ROOT is set its value will be used.
-/// Otherwise, a best effort is made to find the project root using the following technies:
+/// Otherwise, a best effort is made to find the project root using the following techniques:
 /// - Searching upwards for a git repository
 pub fn get_project_root() -> Result<Option<PathBuf>> {
     let project_root = std::env::var(constants::PROJECT_ROOT).ok();
