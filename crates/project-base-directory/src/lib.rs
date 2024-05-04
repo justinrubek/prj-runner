@@ -1,3 +1,4 @@
+#![allow(clippy::result_large_err)]
 use crate::error::{Error, Result};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
