@@ -24,8 +24,8 @@ pub struct Project {
 
 impl Project {
     /// Retrieve the project information detected from current directory.
-    pub async fn discover() -> Result<Self> {
-        let project_root = get_project_root().await?;
+    pub fn discover() -> Result<Self> {
+        let project_root = get_project_root()?;
         let project_data = std::env::var(constants::PROJECT_DATA_HOME)
             .map(PathBuf::from)
             .ok();
@@ -49,8 +49,7 @@ impl Project {
     /// Retrieve the project information detected from the given directory.
     /// If a property is not set, then an opinionated default is used.
     pub async fn discover_and_assume() -> Result<Self> {
-        let mut value = Self::discover().await?;
-
+        let mut value = Self::discover()?;
         // If the project root is not found, give up.
         match value.root_directory {
             Some(_) => {}
@@ -143,7 +142,7 @@ impl Project {
 /// If the environment variable $PRJ_ROOT is set its value will be used.
 /// Otherwise, a best effort is made to find the project root using the following technies:
 /// - Searching upwards for a git repository
-pub async fn get_project_root() -> Result<Option<PathBuf>> {
+pub fn get_project_root() -> Result<Option<PathBuf>> {
     let project_root = std::env::var(constants::PROJECT_ROOT).ok();
     if let Some(project_root) = project_root {
         debug!(
