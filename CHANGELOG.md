@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+
+## [0.3.1](https://github.com/justinrubek/project-runner/releases/tag/0.3.1) - 2024-05-17
+
+### build system
+- **(nix)** update fenix - ([c3559ac](https://github.com/justinrubek/project-runner/commit/c3559ac70d91773ba86c0c01ffbf3972e061fc66)) - [@justinrubek](https://github.com/justinrubek)
+- **(nix)** update bomper - ([4795f54](https://github.com/justinrubek/project-runner/commit/4795f5423ad5b5adc14f2783ac8cc53ecf60b54b)) - [@justinrubek](https://github.com/justinrubek)
+- **(cargo)** cargo update - ([1fddb5f](https://github.com/justinrubek/project-runner/commit/1fddb5f77bd91d10c6cf50fabc8bdd5dbf543357)) - [@justinrubek](https://github.com/justinrubek)
+
+### continuous integration
+- **(github/actions)** replace cocogitto with bomper - ([55e6daf](https://github.com/justinrubek/project-runner/commit/55e6dafcb5d67de4ee0a222b814e7620451aed8d)) - [@justinrubek](https://github.com/justinrubek)
+
+- - -
 ## [0.3.0](https://github.com/justinrubek/project-runner/compare/d370bf8ed363d2999fcef9d18db81035ae90a5eb..0.3.0) - 2024-05-04
 #### Bug Fixes
 - **(cargo)** allow `clippy::result_large_err` - ([85ea300](https://github.com/justinrubek/project-runner/commit/85ea3005631662bea1768bcf071461b7942770c8)) - [@justinrubek](https://github.com/justinrubek)
