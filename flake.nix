@@ -27,6 +27,7 @@
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux"];
       imports = [
+        inputs.bomper.flakeModules.bomper
         inputs.pre-commit-hooks.flakeModule
 
         ./flake-parts/cargo.nix
@@ -36,6 +37,7 @@
         ./flake-parts/formatting.nix
 
         ./flake-parts/shells.nix
+        ./flake-parts/bomper.nix
         ./flake-parts/ci.nix
       ];
     };
