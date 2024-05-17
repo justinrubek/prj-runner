@@ -5,13 +5,15 @@ on:
       - "*"
 jobs:
   publish-github:
+    name: publish to github releases
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
       - name: Install nix
         uses: cachix/install-nix-action@v15
         with:
@@ -19,35 +21,30 @@ jobs:
             access-tokens = github=${{ secrets.GITHUB_TOKEN }}
             extra-substituters = https://cache.garnix.io
             extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
-
       - name: get version
         id: get-version
         run: |
           VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
           echo ::set-output name=version::"$VERSION"
-
       - name: generate changelog
         env:
           VERSION: ${{ steps.get-version.outputs.version }}
         run: |
-          nix develop -c cog changelog --at $VERSION -t full_hash > GITHUB_CHANGELOG.md
-
+          nix run .#bomper -- changelog --at $VERSION > GITHUB_CHANGELOG.md
       - name: generate release
         uses: softprops/action-gh-release@v1
         with:
           body_path: GITHUB_CHANGELOG.md
           tag_name: ${{ steps.get-version.outputs.version }}
-
   publish-crate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - name: Install nix
+        uses: cachix/install-nix-action@v15
         with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - uses: actions-rs/cargo@v1
-        with:
-          command: publish
-          args: --package project-base-directory --token ${{ secrets.CRATES_IO_TOKEN }}
+          extra_nix_config: |
+            access-tokens = github=${{ secrets.GITHUB_TOKEN }}
+            extra-substituters = https://cache.garnix.io
+            extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+      - run: nix develop -c cargo publish --package project-base-directory --token ${{ secrets.CRATES_IO_TOKEN }}
