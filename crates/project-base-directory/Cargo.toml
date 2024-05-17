@@ -8,7 +8,7 @@ homepage = "https://github.com/justinrubek/project-runner"
 repository = "https://github.com/justinrubek/project-runner"
 
 [dependencies]
-gix = { version = "0.54.1", optional = true }
+gix = { version = "0.62", optional = true }
 serde = { workspace = true }
 tokio = { workspace = true }
 thiserror = { workspace = true }
