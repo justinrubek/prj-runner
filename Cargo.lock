@@ -1654,7 +1654,7 @@ dependencies = [
 
 [[package]]
 name = "project-base-directory"
-version = "0.3.1"
+version = "0.3.2"
 dependencies = [
  "gix",
  "serde",
@@ -1665,7 +1665,7 @@ dependencies = [
 
 [[package]]
 name = "project-runner"
-version = "0.3.1"
+version = "0.3.2"
 dependencies = [
  "clap",
  "project-base-directory",

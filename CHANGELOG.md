@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file. See [conven
 
 - - -
 
+## [0.3.2](https://github.com/justinrubek/project-runner/releases/tag/0.3.2) - 2024-11-10
+
+### build system
+- **(cargo)** cargo update - ([6a71872](https://github.com/justinrubek/project-runner/commit/6a71872652ef543f655152d84985f50a377da9e9)) - [@justinrubek](https://github.com/justinrubek)
+- **(nix)** nix flake update - ([6aec3c3](https://github.com/justinrubek/project-runner/commit/6aec3c3c245e5d7bfe61424b36daf1cda701e6d0)) - [@justinrubek](https://github.com/justinrubek)
+
+- - -
+
 ## [0.3.1](https://github.com/justinrubek/project-runner/releases/tag/0.3.1) - 2024-05-17
 
 ### build system
