@@ -22,7 +22,7 @@ async fn main() -> std::result::Result<(), Box<dyn Error>> {
                     debug!(?project, ?exec, "Running command in project");
 
                     let mut process = tokio::process::Command::new(exec.command)
-                        .current_dir(&project.root_directory.unwrap())
+                        .current_dir(project.root_directory.unwrap())
                         .args(exec.args)
                         .spawn()?;
 
