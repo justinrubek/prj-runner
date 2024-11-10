@@ -12,7 +12,7 @@
     ];
 
     packages = {
-      bomper = inputs'.bomper.packages.cli;
+      bomper = inputs'.bomper.packages.default;
     };
 
     devShells = {
